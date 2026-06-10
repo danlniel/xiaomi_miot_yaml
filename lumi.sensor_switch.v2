@@ -1,0 +1,62 @@
+blueprint:
+  name: ZHA - Xiaomi Aqara Wireless Mini Switch V2
+  description: Aqara Mini Switch (lumi.sensor_switch.v2) for ZHA
+  domain: automation
+
+  input:
+    switch_device:
+      name: Aqara Mini Switch
+      selector:
+        device:
+          filter:
+            integration: zha
+            manufacturer: LUMI
+            model: lumi.sensor_switch.v2
+
+    single_press:
+      name: Single Press
+      default: []
+      selector:
+        action: {}
+
+    double_press:
+      name: Double Press
+      default: []
+      selector:
+        action: {}
+
+    long_press:
+      name: Long Press
+      default: []
+      selector:
+        action: {}
+
+mode: parallel
+max_exceeded: silent
+
+trigger:
+  - platform: event
+    event_type: zha_event
+    event_data:
+      device_id: !input switch_device
+
+action:
+  - choose:
+
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.event.data.command == 'click' }}
+        sequence: !input single_press
+
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.event.data.command == 'double-click' }}
+        sequence: !input double_press
+
+      - conditions:
+          - condition: template
+            value_template: >
+              {{ trigger.event.data.command == 'long-press' }}
+        sequence: !input long_press
