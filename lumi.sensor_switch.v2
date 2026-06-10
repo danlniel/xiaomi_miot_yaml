@@ -1,32 +1,34 @@
 blueprint:
   name: ZHA - Xiaomi Aqara Wireless Mini Switch V2
-  description: Aqara Mini Switch (lumi.sensor_switch.v2) for ZHA
+  description: Automate Xiaomi Aqara Wireless Mini Switch (lumi.sensor_switch.v2)
   domain: automation
 
   input:
-    switch_device:
-      name: Aqara Mini Switch
+    mijia_square_switch:
+      name: Aqara Wireless Mini Switch
+      description: Select your Aqara switch
       selector:
         device:
           filter:
-            integration: zha
-            manufacturer: LUMI
-            model: lumi.sensor_switch.v2
+            - integration: zha
 
-    single_press:
+    remote_button_short_press:
       name: Single Press
+      description: Action to run on single press
       default: []
       selector:
         action: {}
 
-    double_press:
+    remote_button_double_press:
       name: Double Press
+      description: Action to run on double press
       default: []
       selector:
         action: {}
 
-    long_press:
+    remote_button_long_press:
       name: Long Press
+      description: Action to run on long press
       default: []
       selector:
         action: {}
@@ -37,26 +39,27 @@ max_exceeded: silent
 trigger:
   - platform: event
     event_type: zha_event
-    event_data:
-      device_id: !input switch_device
 
 action:
-  - choose:
+  - condition: template
+    value_template: >
+      {{ trigger.event.data.device_id == device_id(!input mijia_square_switch) }}
 
+  - choose:
       - conditions:
           - condition: template
             value_template: >
               {{ trigger.event.data.command == 'click' }}
-        sequence: !input single_press
+        sequence: !input remote_button_short_press
 
       - conditions:
           - condition: template
             value_template: >
               {{ trigger.event.data.command == 'double-click' }}
-        sequence: !input double_press
+        sequence: !input remote_button_double_press
 
       - conditions:
           - condition: template
             value_template: >
               {{ trigger.event.data.command == 'long-press' }}
-        sequence: !input long_press
+        sequence: !input remote_button_long_press
