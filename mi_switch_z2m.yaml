@@ -1,0 +1,75 @@
+blueprint:
+  name: Mi Switch (Zigbee2MQTT)
+  description: Control automations using the Mi Switch via Zigbee2MQTT. Supports single, triple, hold, and release actions.
+  domain: automation
+  input:
+    switch_topic:
+      name: Switch MQTT Topic
+      description: The MQTT topic your switch publishes to (e.g. zigbee2mqtt/MiSwitch)
+      default: zigbee2mqtt/MiSwitch
+      selector:
+        text:
+
+    single_action:
+      name: Single Press
+      description: Action to run when switch is pressed once
+      default: []
+      selector:
+        action:
+
+    triple_action:
+      name: Triple Press
+      description: Action to run when switch is pressed three times
+      default: []
+      selector:
+        action:
+
+    hold_action:
+      name: Hold
+      description: Action to run when switch is held
+      default: []
+      selector:
+        action:
+
+    release_action:
+      name: Release
+      description: Action to run when switch is released after hold
+      default: []
+      selector:
+        action:
+
+trigger:
+  - platform: mqtt
+    topic: !input switch_topic
+
+condition:
+  - condition: template
+    value_template: "{{ trigger.payload_json.action is not none and trigger.payload_json.action != '' }}"
+
+action:
+  - variables:
+      action: "{{ trigger.payload_json.action }}"
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'single' }}"
+        sequence: !input single_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'triple' }}"
+        sequence: !input triple_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'hold' }}"
+        sequence: !input hold_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'release' }}"
+        sequence: !input release_action
+
+mode: restart
+max_exceeded: silent
