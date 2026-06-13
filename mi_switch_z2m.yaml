@@ -1,6 +1,6 @@
 blueprint:
   name: Mi Switch (Zigbee2MQTT)
-  description: Control automations using the Mi Switch via Zigbee2MQTT. Supports single, triple, hold, and release actions.
+  description: Control automations using the Mi Switch via Zigbee2MQTT. Supports single, double, triple, quadruple, many, hold, and release actions.
   domain: automation
   input:
     switch_topic:
@@ -17,9 +17,30 @@ blueprint:
       selector:
         action:
 
+    double_action:
+      name: Double Press
+      description: Action to run when switch is pressed twice
+      default: []
+      selector:
+        action:
+
     triple_action:
       name: Triple Press
       description: Action to run when switch is pressed three times
+      default: []
+      selector:
+        action:
+
+    quadruple_action:
+      name: Quadruple Press
+      description: Action to run when switch is pressed four times
+      default: []
+      selector:
+        action:
+
+    many_action:
+      name: Many Presses
+      description: Action to run when switch is pressed many times (5+)
       default: []
       selector:
         action:
@@ -58,8 +79,23 @@ action:
 
       - conditions:
           - condition: template
+            value_template: "{{ action == 'double' }}"
+        sequence: !input double_action
+
+      - conditions:
+          - condition: template
             value_template: "{{ action == 'triple' }}"
         sequence: !input triple_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'quadruple' }}"
+        sequence: !input quadruple_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'many' }}"
+        sequence: !input many_action
 
       - conditions:
           - condition: template
