@@ -1,0 +1,121 @@
+blueprint:
+  name: Aqara Magic Cube (Zigbee2MQTT)
+  description: Control automations using the Aqara Magic Cube T1 Pro via Zigbee2MQTT. Supports shake, slide, tap, flip90, flip180, rotate_left, rotate_right, and wakeup actions.
+  domain: automation
+  input:
+    cube_topic:
+      name: Cube MQTT Topic
+      description: The MQTT topic your cube publishes to (e.g. zigbee2mqtt/AqaraCube)
+      default: zigbee2mqtt/AqaraCube
+      selector:
+        text:
+
+    shake_action:
+      name: Shake
+      description: Action to run when cube is shaken
+      default: []
+      selector:
+        action:
+
+    slide_action:
+      name: Slide
+      description: Action to run when cube is slid
+      default: []
+      selector:
+        action:
+
+    tap_action:
+      name: Tap
+      description: Action to run when cube is tapped
+      default: []
+      selector:
+        action:
+
+    flip90_action:
+      name: Flip 90°
+      description: Action to run when cube is flipped 90 degrees
+      default: []
+      selector:
+        action:
+
+    flip180_action:
+      name: Flip 180°
+      description: Action to run when cube is flipped 180 degrees
+      default: []
+      selector:
+        action:
+
+    rotate_left_action:
+      name: Rotate Left
+      description: Action to run when cube is rotated left
+      default: []
+      selector:
+        action:
+
+    rotate_right_action:
+      name: Rotate Right
+      description: Action to run when cube is rotated right
+      default: []
+      selector:
+        action:
+
+    wakeup_action:
+      name: Wake Up
+      description: Action to run when cube wakes up
+      default: []
+      selector:
+        action:
+
+trigger:
+  - platform: mqtt
+    topic: !input cube_topic
+
+condition: []
+
+action:
+  - variables:
+      action: "{{ trigger.payload_json.action }}"
+
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'shake' }}"
+        sequence: !input shake_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'slide' }}"
+        sequence: !input slide_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'tap' }}"
+        sequence: !input tap_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'flip90' }}"
+        sequence: !input flip90_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'flip180' }}"
+        sequence: !input flip180_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'rotate_left' }}"
+        sequence: !input rotate_left_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'rotate_right' }}"
+        sequence: !input rotate_right_action
+
+      - conditions:
+          - condition: template
+            value_template: "{{ action == 'wakeup' }}"
+        sequence: !input wakeup_action
+
+mode: restart
+max_exceeded: silent
