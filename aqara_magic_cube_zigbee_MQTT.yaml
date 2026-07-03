@@ -1,6 +1,13 @@
 blueprint:
   name: Aqara Magic Cube (Zigbee2MQTT)
-  description: Control automations using the Aqara Magic Cube T1 Pro via Zigbee2MQTT. Supports shake, slide, tap, flip90, flip180, rotate_left, rotate_right, and wakeup actions.
+  description: >-
+    Control automations using the Aqara Magic Cube T1 Pro via Zigbee2MQTT.
+    Supports shake, slide, tap, flip90, flip180, rotate_left, rotate_right,
+    and wakeup actions. Each gesture can optionally be bound per side (0-5,
+    as reported by the `side` attribute in the Zigbee2MQTT payload — for
+    flips this is the side facing up AFTER the flip). The "any side" action
+    always runs first, then the side-specific action (if configured).
+    Watch the Zigbee2MQTT log to identify which face maps to which side number.
   domain: automation
   input:
     cube_topic:
@@ -10,54 +17,299 @@ blueprint:
       selector:
         text:
 
-    shake_action:
+    shake_section:
       name: Shake
-      description: Action to run when cube is shaken
-      default: []
-      selector:
-        action:
+      icon: mdi:vibrate
+      collapsed: true
+      input:
+        shake_action:
+          name: Shake (any side)
+          description: Action to run when cube is shaken, regardless of side
+          default: []
+          selector:
+            action:
+        shake_side_0:
+          name: Shake — side 0 up
+          default: []
+          selector:
+            action:
+        shake_side_1:
+          name: Shake — side 1 up
+          default: []
+          selector:
+            action:
+        shake_side_2:
+          name: Shake — side 2 up
+          default: []
+          selector:
+            action:
+        shake_side_3:
+          name: Shake — side 3 up
+          default: []
+          selector:
+            action:
+        shake_side_4:
+          name: Shake — side 4 up
+          default: []
+          selector:
+            action:
+        shake_side_5:
+          name: Shake — side 5 up
+          default: []
+          selector:
+            action:
 
-    slide_action:
+    slide_section:
       name: Slide
-      description: Action to run when cube is slid
-      default: []
-      selector:
-        action:
+      icon: mdi:arrow-right-bold-box-outline
+      collapsed: true
+      input:
+        slide_action:
+          name: Slide (any side)
+          description: Action to run when cube is slid, regardless of side
+          default: []
+          selector:
+            action:
+        slide_side_0:
+          name: Slide — side 0 up
+          default: []
+          selector:
+            action:
+        slide_side_1:
+          name: Slide — side 1 up
+          default: []
+          selector:
+            action:
+        slide_side_2:
+          name: Slide — side 2 up
+          default: []
+          selector:
+            action:
+        slide_side_3:
+          name: Slide — side 3 up
+          default: []
+          selector:
+            action:
+        slide_side_4:
+          name: Slide — side 4 up
+          default: []
+          selector:
+            action:
+        slide_side_5:
+          name: Slide — side 5 up
+          default: []
+          selector:
+            action:
 
-    tap_action:
+    tap_section:
       name: Tap
-      description: Action to run when cube is tapped
-      default: []
-      selector:
-        action:
+      icon: mdi:gesture-tap
+      collapsed: true
+      input:
+        tap_action:
+          name: Tap (any side)
+          description: Action to run when cube is tapped, regardless of side
+          default: []
+          selector:
+            action:
+        tap_side_0:
+          name: Tap — side 0 up
+          default: []
+          selector:
+            action:
+        tap_side_1:
+          name: Tap — side 1 up
+          default: []
+          selector:
+            action:
+        tap_side_2:
+          name: Tap — side 2 up
+          default: []
+          selector:
+            action:
+        tap_side_3:
+          name: Tap — side 3 up
+          default: []
+          selector:
+            action:
+        tap_side_4:
+          name: Tap — side 4 up
+          default: []
+          selector:
+            action:
+        tap_side_5:
+          name: Tap — side 5 up
+          default: []
+          selector:
+            action:
 
-    flip90_action:
+    flip90_section:
       name: Flip 90°
-      description: Action to run when cube is flipped 90 degrees
-      default: []
-      selector:
-        action:
+      icon: mdi:axis-x-rotate-clockwise
+      collapsed: true
+      input:
+        flip90_action:
+          name: Flip 90° (any side)
+          description: Action to run when cube is flipped 90 degrees, regardless of side
+          default: []
+          selector:
+            action:
+        flip90_side_0:
+          name: Flip 90° — landing on side 0
+          default: []
+          selector:
+            action:
+        flip90_side_1:
+          name: Flip 90° — landing on side 1
+          default: []
+          selector:
+            action:
+        flip90_side_2:
+          name: Flip 90° — landing on side 2
+          default: []
+          selector:
+            action:
+        flip90_side_3:
+          name: Flip 90° — landing on side 3
+          default: []
+          selector:
+            action:
+        flip90_side_4:
+          name: Flip 90° — landing on side 4
+          default: []
+          selector:
+            action:
+        flip90_side_5:
+          name: Flip 90° — landing on side 5
+          default: []
+          selector:
+            action:
 
-    flip180_action:
+    flip180_section:
       name: Flip 180°
-      description: Action to run when cube is flipped 180 degrees
-      default: []
-      selector:
-        action:
+      icon: mdi:axis-x-rotate-counterclockwise
+      collapsed: true
+      input:
+        flip180_action:
+          name: Flip 180° (any side)
+          description: Action to run when cube is flipped 180 degrees, regardless of side
+          default: []
+          selector:
+            action:
+        flip180_side_0:
+          name: Flip 180° — landing on side 0
+          default: []
+          selector:
+            action:
+        flip180_side_1:
+          name: Flip 180° — landing on side 1
+          default: []
+          selector:
+            action:
+        flip180_side_2:
+          name: Flip 180° — landing on side 2
+          default: []
+          selector:
+            action:
+        flip180_side_3:
+          name: Flip 180° — landing on side 3
+          default: []
+          selector:
+            action:
+        flip180_side_4:
+          name: Flip 180° — landing on side 4
+          default: []
+          selector:
+            action:
+        flip180_side_5:
+          name: Flip 180° — landing on side 5
+          default: []
+          selector:
+            action:
 
-    rotate_left_action:
+    rotate_left_section:
       name: Rotate Left
-      description: Action to run when cube is rotated left
-      default: []
-      selector:
-        action:
+      icon: mdi:rotate-left
+      collapsed: true
+      input:
+        rotate_left_action:
+          name: Rotate Left (any side)
+          description: Action to run when cube is rotated left, regardless of side
+          default: []
+          selector:
+            action:
+        rotate_left_side_0:
+          name: Rotate Left — side 0 up
+          default: []
+          selector:
+            action:
+        rotate_left_side_1:
+          name: Rotate Left — side 1 up
+          default: []
+          selector:
+            action:
+        rotate_left_side_2:
+          name: Rotate Left — side 2 up
+          default: []
+          selector:
+            action:
+        rotate_left_side_3:
+          name: Rotate Left — side 3 up
+          default: []
+          selector:
+            action:
+        rotate_left_side_4:
+          name: Rotate Left — side 4 up
+          default: []
+          selector:
+            action:
+        rotate_left_side_5:
+          name: Rotate Left — side 5 up
+          default: []
+          selector:
+            action:
 
-    rotate_right_action:
+    rotate_right_section:
       name: Rotate Right
-      description: Action to run when cube is rotated right
-      default: []
-      selector:
-        action:
+      icon: mdi:rotate-right
+      collapsed: true
+      input:
+        rotate_right_action:
+          name: Rotate Right (any side)
+          description: Action to run when cube is rotated right, regardless of side
+          default: []
+          selector:
+            action:
+        rotate_right_side_0:
+          name: Rotate Right — side 0 up
+          default: []
+          selector:
+            action:
+        rotate_right_side_1:
+          name: Rotate Right — side 1 up
+          default: []
+          selector:
+            action:
+        rotate_right_side_2:
+          name: Rotate Right — side 2 up
+          default: []
+          selector:
+            action:
+        rotate_right_side_3:
+          name: Rotate Right — side 3 up
+          default: []
+          selector:
+            action:
+        rotate_right_side_4:
+          name: Rotate Right — side 4 up
+          default: []
+          selector:
+            action:
+        rotate_right_side_5:
+          name: Rotate Right — side 5 up
+          default: []
+          selector:
+            action:
 
     wakeup_action:
       name: Wake Up
@@ -75,42 +327,232 @@ condition: []
 action:
   - variables:
       action: "{{ trigger.payload_json.action }}"
+      side: "{{ trigger.payload_json.side | default(-1) }}"
 
   - choose:
       - conditions:
           - condition: template
             value_template: "{{ action == 'shake' }}"
-        sequence: !input shake_action
+        sequence:
+          - choose: []
+            default: !input shake_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input shake_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input shake_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input shake_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input shake_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input shake_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input shake_side_5
 
       - conditions:
           - condition: template
             value_template: "{{ action == 'slide' }}"
-        sequence: !input slide_action
+        sequence:
+          - choose: []
+            default: !input slide_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input slide_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input slide_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input slide_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input slide_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input slide_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input slide_side_5
 
       - conditions:
           - condition: template
             value_template: "{{ action == 'tap' }}"
-        sequence: !input tap_action
+        sequence:
+          - choose: []
+            default: !input tap_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input tap_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input tap_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input tap_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input tap_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input tap_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input tap_side_5
 
       - conditions:
           - condition: template
             value_template: "{{ action == 'flip90' }}"
-        sequence: !input flip90_action
+        sequence:
+          - choose: []
+            default: !input flip90_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input flip90_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input flip90_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input flip90_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input flip90_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input flip90_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input flip90_side_5
 
       - conditions:
           - condition: template
             value_template: "{{ action == 'flip180' }}"
-        sequence: !input flip180_action
+        sequence:
+          - choose: []
+            default: !input flip180_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input flip180_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input flip180_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input flip180_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input flip180_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input flip180_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input flip180_side_5
 
       - conditions:
           - condition: template
             value_template: "{{ action == 'rotate_left' }}"
-        sequence: !input rotate_left_action
+        sequence:
+          - choose: []
+            default: !input rotate_left_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input rotate_left_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input rotate_left_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input rotate_left_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input rotate_left_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input rotate_left_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input rotate_left_side_5
 
       - conditions:
           - condition: template
             value_template: "{{ action == 'rotate_right' }}"
-        sequence: !input rotate_right_action
+        sequence:
+          - choose: []
+            default: !input rotate_right_action
+          - choose:
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 0 }}"
+                sequence: !input rotate_right_side_0
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 1 }}"
+                sequence: !input rotate_right_side_1
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 2 }}"
+                sequence: !input rotate_right_side_2
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 3 }}"
+                sequence: !input rotate_right_side_3
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 4 }}"
+                sequence: !input rotate_right_side_4
+              - conditions:
+                  - condition: template
+                    value_template: "{{ side == 5 }}"
+                sequence: !input rotate_right_side_5
 
       - conditions:
           - condition: template
